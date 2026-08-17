@@ -1,0 +1,6 @@
+{
+  "name": "Google Merchandise Store",
+  "description": "Official Google Merchandise Store replica featuring the Google 1998 Retro Collection, Apparel, Drinkware, Accessories, interactive size matrix, real-time cart drawer, multi-step checkout, live search, and data-driven UX enhancements.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
