@@ -1,9 +1,11 @@
 import React from 'react';
 import { Truck, RotateCcw, Mail, HelpCircle, Leaf, ShieldCheck, Globe } from 'lucide-react';
 import { useStore } from '../../context/StoreContext';
+import { CURRENCIES } from '../../data/products';
+import { GoogleLogo } from '../UI/GoogleLogo';
 
 export const Footer: React.FC = () => {
-  const { navigateTo, setIsOrderTrackingOpen, currency, setCurrency } = useStore();
+  const { navigateTo, setIsOrderTrackingOpen, activeCurrency, setCurrency, formatPrice } = useStore();
 
   return (
     <footer className="bg-white border-t border-gray-200 text-gray-600 select-none">
@@ -16,7 +18,7 @@ export const Footer: React.FC = () => {
             </div>
             <div>
               <div className="font-bold text-gray-900">Free Ground Shipping</div>
-              <div className="text-[11px] text-gray-500">On all domestic orders over $100</div>
+              <div className="text-[11px] text-gray-500">On all orders over {formatPrice(100)}</div>
             </div>
           </div>
 
@@ -93,31 +95,33 @@ export const Footer: React.FC = () => {
 
         {/* Bottom Legal & Currency Switcher */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between gap-4 text-[11px] text-gray-500">
-          <div className="text-center md:text-left space-y-1">
-            <p>
-              Operated under license from Google LLC. All Rights Reserved. © {new Date().getFullYear()} Google LLC.
-            </p>
-            <p className="text-gray-400">
-              Google, Android, YouTube, Chrome, Google Cloud, and Pixel are trademarks of Google LLC.
-            </p>
+          <div className="flex items-center space-x-3 text-center md:text-left">
+            <GoogleLogo className="w-6 h-6 shrink-0" />
+            <div className="space-y-0.5">
+              <p>
+                Operated under license from Google LLC. All Rights Reserved. © {new Date().getFullYear()} Google LLC.
+              </p>
+              <p className="text-gray-400">
+                Google, Android, YouTube, Chrome, Google Cloud, and Pixel are trademarks of Google LLC.
+              </p>
+            </div>
           </div>
 
           <div className="flex items-center space-x-4">
             <div className="flex items-center space-x-1.5 text-xs text-gray-600">
               <Globe className="w-3.5 h-3.5" />
-              <span>United States ({currency})</span>
+              <span>{activeCurrency.name}</span>
             </div>
             <select
-              value={currency}
-              onChange={(e) => setCurrency(e.target.value as any)}
-              className="bg-gray-100 border border-gray-300 text-gray-800 text-[11px] font-bold rounded-md px-2 py-1 cursor-pointer"
+              value={activeCurrency.code}
+              onChange={(e) => setCurrency(e.target.value)}
+              className="bg-gray-100 border border-gray-300 text-gray-800 text-[11px] font-bold rounded-md px-2.5 py-1.5 cursor-pointer focus:outline-none focus:ring-2 focus:ring-blue-500"
             >
-              <option value="USD">USD ($)</option>
-              <option value="EUR">EUR (€)</option>
-              <option value="GBP">GBP (£)</option>
-              <option value="CAD">CAD ($)</option>
-              <option value="JPY">JPY (¥)</option>
-              <option value="AUD">AUD ($)</option>
+              {Object.values(CURRENCIES).map((curr) => (
+                <option key={curr.code} value={curr.code}>
+                  {curr.flag} {curr.name}
+                </option>
+              ))}
             </select>
           </div>
         </div>

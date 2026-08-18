@@ -155,7 +155,17 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const [isOrderTrackingOpen, setIsOrderTrackingOpen] = useState<boolean>(false);
 
   // Currency & Promo
-  const [activeCurrency, setActiveCurrency] = useState<CurrencyConfig>(CURRENCIES.USD);
+  const [activeCurrency, setActiveCurrency] = useState<CurrencyConfig>(() => {
+    try {
+      const saved = localStorage.getItem('ggl_store_currency');
+      if (saved && CURRENCIES[saved]) {
+        return CURRENCIES[saved];
+      }
+    } catch {
+      // fallback to USD
+    }
+    return CURRENCIES.USD;
+  });
   const [appliedPromo, setAppliedPromo] = useState<PromoCode | null>(null);
   const [selectedShippingOption, setSelectedShippingOption] = useState<ShippingOption>(SHIPPING_OPTIONS[0]);
   const [lastOrder, setLastOrder] = useState<OrderConfirmation | null>(null);
@@ -205,14 +215,28 @@ export const StoreProvider: React.FC<{ children: ReactNode }> = ({ children }) =
   const formatPrice = (amountInUSD: number): string => {
     const converted = amountInUSD * activeCurrency.rate;
     if (activeCurrency.code === 'JPY') {
-      return `${activeCurrency.symbol}${Math.round(converted).toLocaleString()}`;
+      return `${activeCurrency.symbol}${Math.round(converted).toLocaleString('ja-JP')}`;
     }
-    return `${activeCurrency.symbol}${converted.toFixed(2)}`;
+    if (activeCurrency.code === 'INR') {
+      return `${activeCurrency.symbol}${converted.toLocaleString('en-IN', {
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2,
+      })}`;
+    }
+    return `${activeCurrency.symbol}${converted.toLocaleString('en-US', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2,
+    })}`;
   };
 
   const setCurrency = (code: string) => {
     if (CURRENCIES[code]) {
       setActiveCurrency(CURRENCIES[code]);
+      try {
+        localStorage.setItem('ggl_store_currency', code);
+      } catch {
+        // ignore
+      }
       showToast({
         title: `Currency switched to ${CURRENCIES[code].name}`,
         type: 'info',

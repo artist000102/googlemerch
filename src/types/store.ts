@@ -115,7 +115,7 @@ export interface PromoCode {
   minSpend?: number;
 }
 
-export type CurrencyCode = 'USD' | 'EUR' | 'GBP' | 'CAD' | 'JPY' | 'AUD';
+export type CurrencyCode = 'USD' | 'INR' | 'EUR' | 'GBP' | 'CAD' | 'JPY' | 'AUD';
 
 export interface CurrencyConfig {
   code: CurrencyCode;

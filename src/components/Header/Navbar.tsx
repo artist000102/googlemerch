@@ -17,6 +17,7 @@ import {
 import { useStore } from '../../context/StoreContext';
 import { CURRENCIES, PRODUCTS } from '../../data/products';
 import { ProductCategory } from '../../types/store';
+import { GoogleLogo } from '../UI/GoogleLogo';
 
 export const Navbar: React.FC = () => {
   const {
@@ -124,10 +125,10 @@ export const Navbar: React.FC = () => {
               RETRO 1998
             </span>
             <span className="font-medium text-gray-200">
-              Free shipping on orders over $100 | Use code <span className="font-bold text-[#fbbc05] underline cursor-pointer" onClick={() => {
+              Free shipping on orders over {formatPrice(100)} | Use code <span className="font-bold text-[#fbbc05] underline cursor-pointer" onClick={() => {
                 navigator.clipboard?.writeText('RETRO1998');
-                showToast({ title: 'Promo Code Copied!', description: 'Code RETRO1998 copied to clipboard ($15 off $75+)', type: 'info' });
-              }}>RETRO1998</span> for $15 off $75+
+                showToast({ title: 'Promo Code Copied!', description: `Code RETRO1998 copied to clipboard (${formatPrice(15)} off ${formatPrice(75)}+)`, type: 'info' });
+              }}>RETRO1998</span> for {formatPrice(15)} off {formatPrice(75)}+
             </span>
           </div>
 
@@ -213,13 +214,8 @@ export const Navbar: React.FC = () => {
             className="flex items-center cursor-pointer select-none group py-2"
           >
             <div className="flex items-center space-x-2.5">
-              {/* Google 4-color "G" SVG icon */}
-              <svg className="w-8 h-8 transition-transform group-hover:scale-105 duration-200" viewBox="0 0 48 48">
-                <path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/>
-                <path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/>
-                <path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/>
-                <path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/>
-              </svg>
+              {/* Modern Google Gradient "G" Logo */}
+              <GoogleLogo className="w-8 h-8 transition-transform group-hover:scale-105 duration-200" />
               <div>
                 <div className="text-xl font-bold tracking-tight text-[#202124] flex items-center font-['Plus_Jakarta_Sans',sans-serif]">
                   <span className="text-[#4285f4]">G</span>
@@ -481,6 +477,35 @@ export const Navbar: React.FC = () => {
               <Sparkles className="w-4 h-4 text-[#4285f4]" />
               <span>Sustainability Initiatives</span>
             </button>
+
+            {/* Mobile Currency Selection */}
+            <div className="pt-2">
+              <label className="block text-xs font-semibold text-gray-500 uppercase tracking-wider mb-1.5 px-2">
+                Currency & Region
+              </label>
+              <div className="grid grid-cols-2 gap-1.5 px-1">
+                {Object.values(CURRENCIES).map((curr) => (
+                  <button
+                    key={curr.code}
+                    onClick={() => {
+                      setCurrency(curr.code);
+                      setIsMobileMenuOpen(false);
+                    }}
+                    className={`flex items-center justify-between px-3 py-2 text-xs rounded border transition-colors ${
+                      activeCurrency.code === curr.code
+                        ? 'border-blue-500 bg-blue-50 text-[#1a73e8] font-bold'
+                        : 'border-gray-200 bg-gray-50 text-gray-700 hover:bg-gray-100'
+                    }`}
+                  >
+                    <span className="flex items-center space-x-1.5 truncate">
+                      <span>{curr.flag}</span>
+                      <span className="truncate">{curr.code}</span>
+                    </span>
+                    <span className="font-semibold text-gray-500 ml-1">{curr.symbol}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
           </div>
         </div>
       )}

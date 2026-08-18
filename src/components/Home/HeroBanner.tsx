@@ -4,7 +4,7 @@ import { useStore } from '../../context/StoreContext';
 import { PRODUCTS } from '../../data/products';
 
 export const HeroBanner: React.FC = () => {
-  const { navigateTo, selectProduct, setCategory } = useStore();
+  const { navigateTo, selectProduct, setCategory, formatPrice } = useStore();
 
   const heroProduct = PRODUCTS.find(p => p.id === 'google-1998-vintage-colorblock-windbreaker') || PRODUCTS[1];
 
@@ -69,7 +69,7 @@ export const HeroBanner: React.FC = () => {
               </div>
               <div className="flex items-center space-x-2">
                 <Zap className="w-4 h-4 text-[#fbbc05] shrink-0" />
-                <span className="font-medium">Free US Shipping over $100</span>
+                <span className="font-medium">Free Shipping over {formatPrice(100)}</span>
               </div>
             </div>
           </div>

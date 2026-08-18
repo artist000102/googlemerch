@@ -20,7 +20,8 @@ export const CatalogPage: React.FC = () => {
     selectedCategory, 
     selectedSubcategory, 
     setCategory, 
-    navigateTo 
+    navigateTo,
+    formatPrice
   } = useStore();
 
   // Filter States
@@ -380,10 +381,10 @@ export const CatalogPage: React.FC = () => {
                 <div className="mt-3 space-y-2 text-xs text-gray-600">
                   {[
                     { id: 'all', label: 'All Prices' },
-                    { id: 'under-25', label: 'Under $25' },
-                    { id: '25-50', label: '$25 - $50' },
-                    { id: '50-100', label: '$50 - $100' },
-                    { id: 'over-100', label: '$100 and above' },
+                    { id: 'under-25', label: `Under ${formatPrice(25)}` },
+                    { id: '25-50', label: `${formatPrice(25)} - ${formatPrice(50)}` },
+                    { id: '50-100', label: `${formatPrice(50)} - ${formatPrice(100)}` },
+                    { id: 'over-100', label: `${formatPrice(100)} & above` },
                   ].map(option => (
                     <label key={option.id} className="flex items-center space-x-2.5 cursor-pointer hover:text-black">
                       <input
@@ -548,10 +549,10 @@ export const CatalogPage: React.FC = () => {
                 <div className="space-y-2 text-xs">
                   {[
                     { id: 'all', label: 'All Prices' },
-                    { id: 'under-25', label: 'Under $25' },
-                    { id: '25-50', label: '$25 - $50' },
-                    { id: '50-100', label: '$50 - $100' },
-                    { id: 'over-100', label: '$100+' },
+                    { id: 'under-25', label: `Under ${formatPrice(25)}` },
+                    { id: '25-50', label: `${formatPrice(25)} - ${formatPrice(50)}` },
+                    { id: '50-100', label: `${formatPrice(50)} - ${formatPrice(100)}` },
+                    { id: 'over-100', label: `${formatPrice(100)}+` },
                   ].map(option => (
                     <label key={option.id} className="flex items-center space-x-2 cursor-pointer">
                       <input

@@ -3,7 +3,7 @@ import { ChevronDown, ChevronUp, HelpCircle, Mail, Truck, RefreshCw, ShieldCheck
 import { useStore } from '../../context/StoreContext';
 
 export const FaqPage: React.FC = () => {
-  const { navigateTo } = useStore();
+  const { navigateTo, formatPrice } = useStore();
   const [openFaq, setOpenFaq] = useState<number | null>(0);
 
   const faqs = [
@@ -17,7 +17,7 @@ export const FaqPage: React.FC = () => {
     },
     {
       q: 'How does shipping work and do you offer free shipping?',
-      a: 'We offer Free Standard Ground Shipping on all orders of $100 or more within the continental US. For orders under $100, standard shipping is a flat $5.99. 2-Day Priority ($14.99) and Overnight ($24.99) options are also available.'
+      a: `We offer Free Standard Ground Shipping on all orders of ${formatPrice(100)} or more. For orders under ${formatPrice(100)}, standard shipping is ${formatPrice(5.99)}. 2-Day Priority (${formatPrice(14.99)}) and Overnight (${formatPrice(24.99)}) options are also available.`
     },
     {
       q: 'What is your return & exchange policy?',

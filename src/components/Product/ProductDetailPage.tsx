@@ -473,7 +473,7 @@ export const ProductDetailPage: React.FC = () => {
                 </button>
                 {openShipping && (
                   <div className="mt-3 text-gray-600 leading-relaxed space-y-2">
-                    <p>• <strong>Free standard ground shipping</strong> on orders $100 and above.</p>
+                    <p>• <strong>Free standard ground shipping</strong> on orders {formatPrice(100)} and above.</p>
                     <p>• Standard delivery: 3 to 5 business days.</p>
                     <p>• <strong>30-day risk-free return policy</strong> on unworn, unwashed items with tags attached.</p>
                   </div>

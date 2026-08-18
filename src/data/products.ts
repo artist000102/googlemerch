@@ -1,12 +1,13 @@
 import { Product, PromoCode, CurrencyConfig, ShippingOption } from '../types/store';
 
 export const CURRENCIES: Record<string, CurrencyConfig> = {
-  USD: { code: 'USD', symbol: '$', rate: 1.0, flag: '🇺🇸', name: 'United States (USD)' },
-  EUR: { code: 'EUR', symbol: '€', rate: 0.92, flag: '🇪🇺', name: 'European Union (EUR)' },
-  GBP: { code: 'GBP', symbol: '£', rate: 0.79, flag: '🇬🇧', name: 'United Kingdom (GBP)' },
-  CAD: { code: 'CAD', symbol: 'CA$', rate: 1.36, flag: '🇨🇦', name: 'Canada (CAD)' },
-  JPY: { code: 'JPY', symbol: '¥', rate: 154.5, flag: '🇯🇵', name: 'Japan (JPY)' },
-  AUD: { code: 'AUD', symbol: 'A$', rate: 1.52, flag: '🇦🇺', name: 'Australia (AUD)' },
+  USD: { code: 'USD', symbol: '$', rate: 1.0, flag: '🇺🇸', name: 'United States (USD $)' },
+  INR: { code: 'INR', symbol: '₹', rate: 86.5, flag: '🇮🇳', name: 'India (INR ₹)' },
+  EUR: { code: 'EUR', symbol: '€', rate: 0.92, flag: '🇪🇺', name: 'European Union (EUR €)' },
+  GBP: { code: 'GBP', symbol: '£', rate: 0.79, flag: '🇬🇧', name: 'United Kingdom (GBP £)' },
+  CAD: { code: 'CAD', symbol: 'CA$', rate: 1.36, flag: '🇨🇦', name: 'Canada (CAD CA$)' },
+  JPY: { code: 'JPY', symbol: '¥', rate: 154.5, flag: '🇯🇵', name: 'Japan (JPY ¥)' },
+  AUD: { code: 'AUD', symbol: 'A$', rate: 1.52, flag: '🇦🇺', name: 'Australia (AUD A$)' },
 };
 
 export const PROMO_CODES: PromoCode[] = [
