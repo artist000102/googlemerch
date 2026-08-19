@@ -242,10 +242,10 @@ export const Navbar: React.FC = () => {
                   value={localSearch}
                   onChange={(e) => setLocalSearch(e.target.value)}
                   onFocus={() => setIsSearchFocused(true)}
-                  placeholder="Search Google 1998, apparel, drinkware, plush..."
-                  className="w-full pl-10 pr-10 py-2.5 bg-[#f1f3f4] text-sm text-[#202124] placeholder-gray-500 rounded-full border border-transparent focus:border-[#1a73e8] focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 transition-all"
+                  placeholder="Search tees, hoodies, bottles, plushies..."
+                  className="w-full pl-11 pr-10 py-2.5 bg-[#f1f3f4] text-sm text-[#202124] placeholder-[#5f6368] rounded-full border border-transparent focus:border-[#1a73e8] focus:bg-white focus:outline-none focus:ring-2 focus:ring-blue-100 transition-all"
                 />
-                <Search className="w-4 h-4 text-gray-500 absolute left-3.5 pointer-events-none" />
+                <Search className="w-4.5 h-4.5 text-[#5f6368] absolute left-3.5 pointer-events-none stroke-[1.75]" />
                 {localSearch && (
                   <button
                     type="button"
@@ -427,10 +427,10 @@ export const Navbar: React.FC = () => {
               type="text"
               value={localSearch}
               onChange={(e) => setLocalSearch(e.target.value)}
-              placeholder="Search products..."
-              className="w-full pl-9 pr-4 py-2 bg-gray-100 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-500"
+              placeholder="Search tees, hoodies, bottles, plushies..."
+              className="w-full pl-9 pr-4 py-2 bg-gray-100 rounded-lg text-sm text-[#202124] placeholder-[#5f6368] focus:outline-none focus:ring-2 focus:ring-blue-500"
             />
-            <Search className="w-4 h-4 text-gray-400 absolute left-3 top-3 pointer-events-none" />
+            <Search className="w-4 h-4 text-[#5f6368] absolute left-3 top-3 pointer-events-none" />
           </form>
 
           {/* Categories List */}

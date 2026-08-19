@@ -1,4 +1,14 @@
 import { Product, PromoCode, CurrencyConfig, ShippingOption } from '../types/store';
+import nanoBananaTeeImg1 from '../assets/images/regenerated_image_1787094887069.png';
+import nanoBananaTeeImg2 from '../assets/images/regenerated_image_1787094889433.png';
+import nanoBananaTeeImg3 from '../assets/images/regenerated_image_1787094892847.png';
+import gravitySuperGBottleImg from '../assets/images/gravity_super_g_bottle_1787092094041.jpg';
+import gravitySuperGBottleOpenImg from '../assets/images/super_g_bottle_open_1787095919304.jpg';
+import marineLayer1998Img from '../assets/images/marine_layer_1998_1787092107824.jpg';
+import nanoBananaCrewneckImg from '../assets/images/nano_banana_crewneck_1787092120793.jpg';
+import androidPlushImg from '../assets/images/regenerated_image_1787093165631.png';
+import youtubeKidsImg from '../assets/images/regenerated_image_1787093170351.png';
+import luckySocksImg from '../assets/images/regenerated_image_1787093173957.png';
 
 export const CURRENCIES: Record<string, CurrencyConfig> = {
   USD: { code: 'USD', symbol: '$', rate: 1.0, flag: '🇺🇸', name: 'United States (USD $)' },
@@ -64,6 +74,185 @@ export const SHIPPING_OPTIONS: ShippingOption[] = [
 ];
 
 export const PRODUCTS: Product[] = [
+  {
+    id: 'nano-banana-tee',
+    title: 'Nano Banana Tee',
+    slug: 'nano-banana-tee',
+    price: 28.00,
+    compareAtPrice: 34.00,
+    category: 'Apparel',
+    subcategory: 'T-Shirts',
+    brand: 'Google',
+    itemType: 'T-Shirts',
+    sku: 'GGL-APP-NB-028',
+    shortDescription: 'Classic lightweight organic combed cotton crewneck t-shirt featuring the playful Nano Banana Urban Explorer graphic.',
+    description: 'The Nano Banana Tee pairs daily casual comfort with Google creativity. Made with 100% GOTS certified organic ring-spun cotton and screenprinted with eco-friendly water-based ink.',
+    details: [
+      '100% GOTS Certified Ring-Spun Organic Cotton (180 GSM)',
+      'Custom Nano Banana Urban Explorer screenprint on chest',
+      'Ribbed collar with shoulder-to-shoulder taping for shape retention',
+      'Pre-shrunk for an enduring true-to-size fit'
+    ],
+    materials: '100% Organic Ring-Spun Combed Cotton.',
+    careInstructions: 'Machine wash cold with like colors inside out. Tumble dry low.',
+    sustainabilityNote: 'Zero-pesticide organic farming, 100% biodegradable organic cotton fibers.',
+    images: [
+      nanoBananaTeeImg1,
+      nanoBananaTeeImg2,
+      nanoBananaTeeImg3
+    ],
+    colors: [
+      { name: 'White', hex: '#FFFFFF' },
+      { name: 'Yellow', hex: '#FBBC05' },
+      { name: 'Charcoal', hex: '#37474F' },
+      { name: 'Light Blue', hex: '#4285F4' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    stockBySize: [
+      { size: 'XS', available: 12 },
+      { size: 'S', available: 25 },
+      { size: 'M', available: 30 },
+      { size: 'L', available: 18 },
+      { size: 'XL', available: 8 }
+    ],
+    rating: 4.9,
+    reviewCount: 1428,
+    isBestSeller: true,
+    badge: 'Most Loved',
+    inStock: true
+  },
+  {
+    id: 'google-gravity-super-g-bottle',
+    title: 'Google Gravity Super G Bottle',
+    slug: 'google-gravity-super-g-bottle',
+    price: 32.00,
+    compareAtPrice: 38.00,
+    category: 'Drinkware',
+    subcategory: 'Bottles & Tumblers',
+    brand: 'Google',
+    itemType: 'Bottles & Tumblers',
+    sku: 'GGL-DRK-GG-032',
+    shortDescription: 'Double-wall vacuum insulated stainless steel water bottle with quick-carry loop cap and iconic Google G logo.',
+    description: 'Engineered for all-day thermal performance, the Google Gravity Super G Bottle keeps drinks icy cold for 24 hours or piping hot for 12 hours. Features durable matte powder-coating, silicone bumper base, and leakproof loop lid.',
+    details: [
+      '22 oz (650 ml) capacity fits standard gym and vehicle cup holders',
+      'Food-grade 18/8 stainless steel double-wall vacuum construction',
+      'Ergonomic carry-loop insulated cap with leakproof seal',
+      'Four-color Google G icon precision emblem'
+    ],
+    materials: '18/8 Pro-Grade Stainless Steel, BPA-Free Polypropylene.',
+    careInstructions: 'Top-rack dishwasher safe. Hand wash recommended for maximum coat longevity.',
+    sustainabilityNote: 'Replaces over 500 single-use plastic bottles per year.',
+    images: [
+      gravitySuperGBottleImg,
+      gravitySuperGBottleOpenImg
+    ],
+    colors: [
+      { name: 'Matte Black', hex: '#1E1E1E' },
+      { name: 'Light Blue', hex: '#4285F4' },
+      { name: 'White', hex: '#FFFFFF' },
+      { name: 'Mint Green', hex: '#34A853' }
+    ],
+    sizes: ['One Size'],
+    stockBySize: [
+      { size: 'One Size', available: 50 }
+    ],
+    rating: 4.8,
+    reviewCount: 892,
+    isBestSeller: true,
+    badge: 'Bundle 15% Off',
+    inStock: true
+  },
+  {
+    id: 'google-marine-layer-1998-crewneck',
+    title: 'Google Marine Layer 1998 Crewneck',
+    slug: 'google-marine-layer-1998-crewneck',
+    price: 78.00,
+    compareAtPrice: 92.00,
+    category: 'Apparel',
+    subcategory: 'Sweatshirts & Hoodies',
+    brand: 'Google 1998',
+    itemType: 'Sweatshirts & Hoodies',
+    sku: 'GGL-98-ML-078',
+    shortDescription: 'Super-soft custom blend fleece sweatshirt featuring archival 1998 Google logo graphic.',
+    description: 'Constructed from Marine Layer signature signature supersoft brushed fleece, this crewneck is an homage to Google’s founding era with premium vintage aesthetic and exceptional comfort.',
+    details: [
+      'Heavyweight 320 GSM signature supersoft cotton-modal fleece blend',
+      'Archival 1998 Google heritage logo on chest',
+      'Ribbed knit neck, hem, and cuffs for snug fit',
+      'Custom woven Google 1998 vintage collection label'
+    ],
+    materials: '60% Organic Cotton, 40% Modal Fleece.',
+    careInstructions: 'Machine wash cold. Tumble dry low.',
+    sustainabilityNote: 'Modal fiber produced from sustainably harvested beechwood trees.',
+    images: [
+      marineLayer1998Img,
+      'https://images.unsplash.com/photo-1556905055-8f358a7a47b2?auto=format&fit=crop&w=1000&q=80'
+    ],
+    colors: [
+      { name: 'Google Navy', hex: '#1A237E' },
+      { name: 'Heather Grey', hex: '#90A4AE' },
+      { name: 'Forest Green', hex: '#2E7D32' }
+    ],
+    sizes: ['S', 'M', 'L', 'XL', '2XL'],
+    stockBySize: [
+      { size: 'S', available: 15 },
+      { size: 'M', available: 20 },
+      { size: 'L', available: 16 },
+      { size: 'XL', available: 9 },
+      { size: '2XL', available: 4 }
+    ],
+    rating: 4.9,
+    reviewCount: 654,
+    isRetro1998: true,
+    isBestSeller: true,
+    badge: 'Best Seller',
+    inStock: true
+  },
+  {
+    id: 'nano-banana-crewneck',
+    title: 'Nano Banana Crewneck Sweatshirt',
+    slug: 'nano-banana-crewneck',
+    price: 52.00,
+    category: 'Apparel',
+    subcategory: 'Sweatshirts & Hoodies',
+    brand: 'Google',
+    itemType: 'Sweatshirts & Hoodies',
+    sku: 'GGL-APP-NB-052',
+    shortDescription: 'Cozy pastel butter yellow crewneck sweatshirt with embroidered mini Nano Banana mascot on chest.',
+    description: 'Brighten your daily rotation with the Nano Banana Crewneck. Built with premium midweight French terry cotton in a cheerful pastel yellow colorway with precise embroidered character detailing.',
+    details: [
+      '100% French Terry Organic Cotton (300 GSM)',
+      'High-stitch embroidered Nano Banana chest emblem',
+      'Drop-shoulder relaxed contemporary fit',
+      'Ribbed collar and elastane cuffs'
+    ],
+    materials: '100% Organic French Terry Cotton.',
+    careInstructions: 'Machine wash cold with gentle detergent. Lay flat to dry.',
+    sustainabilityNote: 'Eco-dyed with low-impact non-toxic dyes.',
+    images: [
+      nanoBananaCrewneckImg,
+      'https://images.unsplash.com/photo-1578587018452-892bacefd3f2?auto=format&fit=crop&w=1000&q=80'
+    ],
+    colors: [
+      { name: 'Pastel Yellow', hex: '#FDE047' },
+      { name: 'Charcoal', hex: '#37474F' },
+      { name: 'Off White', hex: '#F5F5F5' }
+    ],
+    sizes: ['XS', 'S', 'M', 'L', 'XL'],
+    stockBySize: [
+      { size: 'XS', available: 10 },
+      { size: 'S', available: 18 },
+      { size: 'M', available: 22 },
+      { size: 'L', available: 14 },
+      { size: 'XL', available: 7 }
+    ],
+    rating: 4.8,
+    reviewCount: 420,
+    isNew: true,
+    badge: 'New',
+    inStock: true
+  },
   {
     id: 'nano-banana-sweatshirt',
     title: 'Nano Banana Sweatshirt',
@@ -433,6 +622,7 @@ export const PRODUCTS: Product[] = [
     careInstructions: 'Surface wash with damp cloth and gentle soap. Air dry.',
     sustainabilityNote: 'Filled with 100% recycled PET fiber pellets.',
     images: [
+      androidPlushImg,
       'https://images.unsplash.com/photo-1558679908-541bcf1249ff?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1535295972055-1c762f4483e5?auto=format&fit=crop&w=1000&q=80'
     ],
@@ -472,6 +662,7 @@ export const PRODUCTS: Product[] = [
     careInstructions: 'Machine wash warm, tumble dry normal.',
     sustainabilityNote: 'Certified OEKO-TEX Standard 100 child safe.',
     images: [
+      youtubeKidsImg,
       'https://images.unsplash.com/photo-1509967419530-da38b4704bc6?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1512436991641-6745cdb1723f?auto=format&fit=crop&w=1000&q=80'
     ],
@@ -516,6 +707,7 @@ export const PRODUCTS: Product[] = [
     careInstructions: 'Machine wash warm inside out. Tumble dry medium.',
     sustainabilityNote: 'Crafted with recycled elastane and organic cotton.',
     images: [
+      luckySocksImg,
       'https://images.unsplash.com/photo-1586350977771-b3b0abd50c82?auto=format&fit=crop&w=1000&q=80',
       'https://images.unsplash.com/photo-1608256246200-53e635b5b65f?auto=format&fit=crop&w=1000&q=80'
     ],

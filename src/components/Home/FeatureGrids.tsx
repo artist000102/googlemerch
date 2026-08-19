@@ -4,12 +4,12 @@ import { useStore } from '../../context/StoreContext';
 import { ProductCategory } from '../../types/store';
 import { ProductCarousel } from './ProductCarousel';
 
-import androidPlushImg from '../../assets/images/android_plush_1786906544093.jpg';
-import youtubeKidsImg from '../../assets/images/youtube_kids_book_1786906556388.jpg';
-import luckySocksImg from '../../assets/images/lucky_socks_1786906568441.jpg';
+import androidPlushImg from '../../assets/images/regenerated_image_1787093165631.png';
+import youtubeKidsImg from '../../assets/images/regenerated_image_1787093170351.png';
+import luckySocksImg from '../../assets/images/regenerated_image_1787093173957.png';
 
 export const FeatureGrids: React.FC = () => {
-  const { setCategory, selectProduct, products } = useStore();
+  const { setCategory, selectProduct, products, formatPrice } = useStore();
 
   const handleCardClick = (category: ProductCategory, subcategory?: string, productId?: string) => {
     if (productId) {
@@ -23,7 +23,10 @@ export const FeatureGrids: React.FC = () => {
   };
 
   return (
-    <div className="space-y-20 py-12">
+    <div className="space-y-20 py-8">
+      {/* Product Carousel Section: Featured Catalog / Best Sellers right below Hero section */}
+      <ProductCarousel />
+
       {/* Exact Match: Shop Trending Collections Section */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <h2 className="text-3xl sm:text-4xl md:text-[40px] font-bold text-[#3c4043] text-center mb-10 tracking-tight font-['Roboto',sans-serif]">
@@ -129,9 +132,6 @@ export const FeatureGrids: React.FC = () => {
         </div>
       </section>
 
-      {/* Product Carousel Section between Trending Collections and Sunny Sips */}
-      <ProductCarousel />
-
       {/* 3-Column Grid: Sunny Sips, Mix Match Patch, Blank Pages Bold Ideas */}
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 lg:gap-8">
@@ -166,7 +166,7 @@ export const FeatureGrids: React.FC = () => {
                   <span>Shop Drinkware</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </span>
-                <span className="text-xs font-bold text-gray-500">From $18.00</span>
+                <span className="text-xs font-bold text-gray-500">From {formatPrice(18.00)}</span>
               </div>
             </div>
           </div>
@@ -202,7 +202,7 @@ export const FeatureGrids: React.FC = () => {
                   <span>Shop Patches & Pins</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </span>
-                <span className="text-xs font-bold text-gray-500">From $22.00</span>
+                <span className="text-xs font-bold text-gray-500">From {formatPrice(22.00)}</span>
               </div>
             </div>
           </div>
@@ -238,7 +238,7 @@ export const FeatureGrids: React.FC = () => {
                   <span>Shop Stationery</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </span>
-                <span className="text-xs font-bold text-gray-500">From $14.00</span>
+                <span className="text-xs font-bold text-gray-500">From {formatPrice(14.00)}</span>
               </div>
             </div>
           </div>
@@ -279,7 +279,7 @@ export const FeatureGrids: React.FC = () => {
                   <span>Shop Headwear</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </span>
-                <span className="text-sm font-bold text-gray-900">$28.00</span>
+                <span className="text-sm font-bold text-gray-900">{formatPrice(28.00)}</span>
               </div>
             </div>
           </div>
@@ -315,7 +315,7 @@ export const FeatureGrids: React.FC = () => {
                   <span>Shop Activewear</span>
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </span>
-                <span className="text-sm font-bold text-gray-900">$36.00</span>
+                <span className="text-sm font-bold text-gray-900">{formatPrice(34.00)}</span>
               </div>
             </div>
           </div>

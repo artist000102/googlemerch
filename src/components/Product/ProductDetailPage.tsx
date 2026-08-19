@@ -49,13 +49,47 @@ export const ProductDetailPage: React.FC = () => {
   const [openShipping, setOpenShipping] = useState(false);
   const [openCare, setOpenCare] = useState(false);
 
-  // Bundle selection
-  const [includeBundleItem1, setIncludeBundleItem1] = useState(true);
-  const [includeBundleItem2, setIncludeBundleItem2] = useState(true);
+  // Bundle selection matching screenshot offer
+  const apparelBundleOptions = [
+    {
+      id: 'nano-banana-tee',
+      title: 'Nano Banana Tee',
+      price: 28.00,
+      product: products.find(p => p.id === 'nano-banana-tee') || products[0]
+    },
+    {
+      id: 'google-marine-layer-1998-crewneck',
+      title: 'Google Marine Layer 1998 Pullover',
+      price: 78.00,
+      product: products.find(p => p.id === 'google-marine-layer-1998-crewneck') || products[1]
+    },
+    {
+      id: 'nano-banana-crewneck',
+      title: 'Nano Banana Crewneck Sweatshirt',
+      price: 52.00,
+      product: products.find(p => p.id === 'nano-banana-crewneck') || products[2]
+    },
+    {
+      id: 'google-recycled-black-hoodie',
+      title: 'Google Recycled Black Hoodie',
+      price: 64.00,
+      product: products.find(p => p.id === 'google-recycled-black-hoodie' || p.id === 'nano-banana-sweatshirt') || products[3]
+    }
+  ];
 
-  // Frequently bought bundle partners
-  const bundleItem1 = products.find(p => p.id === 'the-lucky-socks-google-colorway-pack') || products[2];
-  const bundleItem2 = products.find(p => p.id === 'top-it-off-google-vintage-corduroy-cap') || products[3];
+  const [selectedApparelId, setSelectedApparelId] = useState<string>('google-recycled-black-hoodie');
+  const [selectedApparelSize, setSelectedApparelSize] = useState<string>('L');
+
+  // Target product for bundle
+  const targetProduct = products.find(p => p.id === 'google-gravity-super-g-bottle') || product;
+  const targetDiscountedPrice = targetProduct.price * 0.85;
+  const targetSavings = targetProduct.price * 0.15;
+
+  const selectedApparelOption = apparelBundleOptions.find(o => o.id === selectedApparelId) || apparelBundleOptions[3];
+  const selectedApparelProduct = selectedApparelOption.product;
+
+  const bundleTotalRegular = selectedApparelOption.price + targetProduct.price;
+  const bundleTotalDiscounted = selectedApparelOption.price + targetDiscountedPrice;
 
   const isFavorite = isInWishlist(product.id);
 
@@ -79,25 +113,16 @@ export const ProductDetailPage: React.FC = () => {
 
   // Bundle Add to Cart
   const handleAddBundle = () => {
-    // Add primary item
-    addToCart(product, 'M', selectedColor, 1);
-    if (includeBundleItem1) {
-      addToCart(bundleItem1, bundleItem1.sizes[0], bundleItem1.colors[0], 1);
-    }
-    if (includeBundleItem2) {
-      addToCart(bundleItem2, bundleItem2.sizes[0], bundleItem2.colors[0], 1);
-    }
+    // Add target item with 15% discount
+    addToCart(targetProduct, (targetProduct.sizes[0] || 'One Size') as ProductSize, targetProduct.colors[0], 1);
+    // Add selected apparel item
+    addToCart(selectedApparelProduct, (selectedApparelSize || 'L') as ProductSize, selectedApparelProduct.colors[0], 1);
     showToast({
-      title: 'Bundle Added to Cart! 🎁',
-      description: 'Frequently bought together bundle added with special savings.',
+      title: 'Bundle Added to Bag! 🎁',
+      description: `Added ${selectedApparelOption.title} and ${targetProduct.title} (15% Off) with special bundle pricing!`,
       type: 'success',
     });
   };
-
-  const bundleTotal = product.price + 
-    (includeBundleItem1 ? bundleItem1.price : 0) + 
-    (includeBundleItem2 ? bundleItem2.price : 0);
-  const bundleDiscounted = bundleTotal * 0.9; // 10% bundle discount
 
   // Related products
   const relatedProducts = products
@@ -176,17 +201,6 @@ export const ProductDetailPage: React.FC = () => {
                 )}
               </div>
 
-              {/* Wishlist Button on Image */}
-              <button
-                onClick={() => toggleWishlist(product.id)}
-                className={`absolute top-4 right-4 z-10 p-3 rounded-full shadow-md transition-all cursor-pointer ${
-                  isFavorite ? 'bg-red-50 text-[#ea4335]' : 'bg-white/90 text-gray-600 hover:text-[#ea4335] hover:bg-white'
-                }`}
-                title={isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'}
-              >
-                <Heart className={`w-5 h-5 ${isFavorite ? 'fill-[#ea4335] text-[#ea4335]' : ''}`} />
-              </button>
-
               <img
                 src={product.images[activeImageIdx] || product.images[0]}
                 alt={product.title}
@@ -198,25 +212,9 @@ export const ProductDetailPage: React.FC = () => {
           {/* Right Column: Product Info & Size/Quantity Matrix Table (Screenshots 11-13) */}
           <div className="lg:col-span-5 space-y-6">
             <div>
-              {/* Brand & SKU */}
-              <div className="flex items-center justify-between text-xs font-semibold text-gray-500 mb-1">
+              {/* Brand */}
+              <div className="text-xs font-semibold text-gray-500 mb-1">
                 <span className="text-[#1a73e8] uppercase tracking-widest font-bold">{product.brand}</span>
-                <div className="flex items-center space-x-3">
-                  <span className="font-mono text-gray-400">{product.sku}</span>
-                  <button
-                    id="header-wishlist-toggle-btn"
-                    onClick={() => toggleWishlist(product.id)}
-                    className={`p-1.5 rounded-full transition-colors cursor-pointer ${
-                      isFavorite 
-                        ? 'bg-red-50 text-[#ea4335]' 
-                        : 'bg-gray-100 text-gray-500 hover:bg-gray-200 hover:text-gray-900'
-                    }`}
-                    title={isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'}
-                    aria-label={isFavorite ? 'Remove from Wishlist' : 'Add to Wishlist'}
-                  >
-                    <Heart className={`w-4 h-4 ${isFavorite ? 'fill-[#ea4335] text-[#ea4335]' : ''}`} />
-                  </button>
-                </div>
               </div>
 
               {/* Product Title */}
@@ -500,84 +498,179 @@ export const ProductDetailPage: React.FC = () => {
         </div>
 
         {/* Frequently Bought Together Bundle Builder Section */}
-        <section className="mt-16 bg-[#f8f9fa] rounded-3xl p-6 sm:p-10 border border-gray-200">
-          <div className="max-w-4xl mx-auto">
-            <div className="flex items-center space-x-2 text-xs font-bold text-[#1a73e8] uppercase tracking-wider mb-2">
-              <Sparkles className="w-4 h-4 text-[#fbbc05]" />
-              <span>FREQUENTLY BOUGHT TOGETHER</span>
-            </div>
-            <h3 className="text-2xl font-extrabold text-gray-900 mb-6">
-              Complete the Google Heritage Look & Save 10%
-            </h3>
-
-            <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-center">
-              {/* 3 Bundle Items Stage */}
-              <div className="md:col-span-8 flex flex-wrap sm:flex-nowrap items-center gap-4">
-                {/* Main Product */}
-                <div className="flex-1 bg-white p-3 rounded-xl border border-gray-200 text-center shadow-xs">
-                  <img src={product.images[0]} alt={product.title} className="w-20 h-20 object-contain mx-auto mix-blend-multiply" />
-                  <div className="text-xs font-bold text-gray-900 mt-2 truncate">{product.title}</div>
-                  <div className="text-xs font-semibold text-[#1a73e8]">{formatPrice(product.price)}</div>
-                </div>
-
-                <span className="text-gray-400 font-bold text-lg">+</span>
-
-                {/* Bundle Item 1 */}
-                <div className="flex-1 bg-white p-3 rounded-xl border border-gray-200 text-center shadow-xs">
-                  <img src={bundleItem1.images[0]} alt={bundleItem1.title} className="w-20 h-20 object-contain mx-auto mix-blend-multiply" />
-                  <div className="text-xs font-bold text-gray-900 mt-2 truncate">{bundleItem1.title}</div>
-                  <div className="text-xs font-semibold text-[#1a73e8]">{formatPrice(bundleItem1.price)}</div>
-                  <label className="flex items-center justify-center space-x-1.5 mt-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={includeBundleItem1}
-                      onChange={(e) => setIncludeBundleItem1(e.target.checked)}
-                      className="rounded text-[#1a73e8] w-3.5 h-3.5"
-                    />
-                    <span className="text-[10px] font-semibold text-gray-600">Include</span>
-                  </label>
-                </div>
-
-                <span className="text-gray-400 font-bold text-lg">+</span>
-
-                {/* Bundle Item 2 */}
-                <div className="flex-1 bg-white p-3 rounded-xl border border-gray-200 text-center shadow-xs">
-                  <img src={bundleItem2.images[0]} alt={bundleItem2.title} className="w-20 h-20 object-contain mx-auto mix-blend-multiply" />
-                  <div className="text-xs font-bold text-gray-900 mt-2 truncate">{bundleItem2.title}</div>
-                  <div className="text-xs font-semibold text-[#1a73e8]">{formatPrice(bundleItem2.price)}</div>
-                  <label className="flex items-center justify-center space-x-1.5 mt-2 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={includeBundleItem2}
-                      onChange={(e) => setIncludeBundleItem2(e.target.checked)}
-                      className="rounded text-[#1a73e8] w-3.5 h-3.5"
-                    />
-                    <span className="text-[10px] font-semibold text-gray-600">Include</span>
-                  </label>
-                </div>
-              </div>
-
-              {/* Bundle Action */}
-              <div className="md:col-span-4 bg-white p-6 rounded-2xl border border-gray-200 shadow-sm space-y-4">
+        <section className="mt-16 bg-white rounded-3xl p-6 sm:p-8 lg:p-10 border border-gray-200 shadow-sm">
+          <div className="max-w-6xl mx-auto">
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+              
+              {/* Product 1 Card (Target item with 15% discount) */}
+              <div className="lg:col-span-4 bg-[#f8f9fa] border border-gray-200/90 rounded-2xl p-5 flex flex-col justify-between">
                 <div>
-                  <div className="text-xs text-gray-500 font-medium">Bundle Price:</div>
-                  <div className="flex items-baseline space-x-2 mt-1">
-                    <span className="text-2xl font-black text-gray-900">{formatPrice(bundleDiscounted)}</span>
-                    <span className="text-sm text-gray-400 line-through">{formatPrice(bundleTotal)}</span>
+                  <span className="inline-block bg-[#fbbc05] text-[#202124] text-[11px] font-extrabold px-3 py-1 rounded-md uppercase tracking-wider mb-3 shadow-xs">
+                    15% OFF TARGET
+                  </span>
+                  <div className="bg-white rounded-xl aspect-square p-4 flex items-center justify-center border border-gray-100 overflow-hidden shadow-xs">
+                    <img 
+                      src={targetProduct.images[0]} 
+                      alt={targetProduct.title} 
+                      className="max-w-full max-h-full object-contain mix-blend-multiply" 
+                    />
                   </div>
-                  <div className="text-[11px] font-bold text-[#137333] mt-1">
-                    You save {formatPrice(bundleTotal - bundleDiscounted)} (10% Bundle Discount)
+                  <h4 className="font-extrabold text-gray-900 text-base sm:text-lg mt-4 leading-snug">
+                    {targetProduct.title}
+                  </h4>
+                  <p className="text-xs text-gray-500 mt-1 line-clamp-2">
+                    {targetProduct.shortDescription || '24oz TempShield Vacuum Insulated Stainless Steel'}
+                  </p>
+                </div>
+
+                <div className="flex items-baseline space-x-2 mt-4 pt-3 border-t border-gray-200/70">
+                  <span className="text-2xl font-black text-[#e37400]">
+                    {formatPrice(targetDiscountedPrice)}
+                  </span>
+                  <span className="text-sm text-gray-400 line-through font-medium">
+                    {formatPrice(targetProduct.price)}
+                  </span>
+                  <span className="text-xs font-bold text-[#137333] bg-green-50 px-2 py-0.5 rounded">
+                    Save {formatPrice(targetSavings)}
+                  </span>
+                </div>
+              </div>
+
+              {/* Plus Circle Connector */}
+              <div className="lg:hidden flex justify-center items-center py-1">
+                <div className="w-10 h-10 rounded-full bg-[#1a73e8] text-white flex items-center justify-center font-bold text-xl shadow-md">
+                  +
+                </div>
+              </div>
+
+              {/* Product 2 Card (Select Apparel Item with Product Image) */}
+              <div className="relative lg:col-span-4 bg-[#f8f9fa] border border-gray-200/90 rounded-2xl p-5 flex flex-col justify-between">
+                {/* Desktop Absolute Plus Connector */}
+                <div className="hidden lg:flex absolute -left-5 top-1/2 -translate-y-1/2 z-10 w-10 h-10 rounded-full bg-[#1a73e8] text-white items-center justify-center font-bold text-xl shadow-md border-2 border-white">
+                  +
+                </div>
+
+                <div>
+                  <div className="flex items-center justify-between text-xs font-extrabold uppercase tracking-wider text-gray-700 mb-3">
+                    <span>SELECT APPAREL ITEM:</span>
+                    <span className="text-gray-900">{formatPrice(selectedApparelOption.price)}</span>
+                  </div>
+
+                  {/* Product 2 Image Container */}
+                  <div className="bg-white rounded-xl aspect-4/3 sm:aspect-square max-h-36 sm:max-h-40 p-3 flex items-center justify-center border border-gray-100 overflow-hidden shadow-xs mb-3">
+                    <img 
+                      src={selectedApparelProduct.images[0]} 
+                      alt={selectedApparelOption.title} 
+                      className="max-w-full max-h-full object-contain mix-blend-multiply" 
+                    />
+                  </div>
+
+                  {/* Apparel Item Selector Pills */}
+                  <div className="space-y-1.5">
+                    {apparelBundleOptions.map((opt) => {
+                      const isSelected = opt.id === selectedApparelId;
+                      return (
+                        <button
+                          key={opt.id}
+                          type="button"
+                          onClick={() => setSelectedApparelId(opt.id)}
+                          className={`w-full px-3.5 py-2 rounded-xl text-xs font-medium flex items-center justify-between transition-all cursor-pointer text-left ${
+                            isSelected
+                              ? 'bg-[#1a73e8] text-white font-bold shadow-xs'
+                              : 'bg-white hover:bg-gray-100 text-gray-800 border border-gray-200/80'
+                          }`}
+                        >
+                          <span className="truncate pr-2">{opt.title}</span>
+                          <span className={isSelected ? 'text-white font-bold' : 'text-gray-600'}>
+                            {formatPrice(opt.price)}
+                          </span>
+                        </button>
+                      );
+                    })}
                   </div>
                 </div>
 
-                <button
-                  onClick={handleAddBundle}
-                  className="w-full py-3 bg-[#1a73e8] hover:bg-[#1557b0] text-white rounded-full text-xs font-bold shadow-md transition-all cursor-pointer flex items-center justify-center space-x-2"
-                >
-                  <ShoppingBag className="w-4 h-4" />
-                  <span>Add All to Cart</span>
-                </button>
+                {/* Size Selector */}
+                <div className="mt-4 pt-3 border-t border-gray-200/70">
+                  <div className="text-[11px] font-bold uppercase tracking-wider text-gray-600 mb-2">
+                    SIZE: <span className="text-gray-900">{selectedApparelSize}</span>
+                  </div>
+                  <div className="flex items-center gap-1.5">
+                    {['S', 'M', 'L', 'XL', '2XL'].map((sz) => {
+                      const isSelected = sz === selectedApparelSize;
+                      return (
+                        <button
+                          key={sz}
+                          type="button"
+                          onClick={() => setSelectedApparelSize(sz)}
+                          className={`px-3 py-1.5 rounded-lg text-xs font-bold transition-all cursor-pointer ${
+                            isSelected
+                              ? 'bg-white text-gray-900 border-2 border-[#1a73e8] shadow-xs'
+                              : 'bg-gray-200/80 hover:bg-gray-300 text-gray-700'
+                          }`}
+                        >
+                          {sz}
+                        </button>
+                      );
+                    })}
+                  </div>
+                </div>
               </div>
+
+              {/* Card 3: Offer Card (BUNDLE DEAL PRICING) */}
+              <div className="lg:col-span-4 bg-[#f8f9fa] border border-gray-200/90 rounded-2xl p-6 sm:p-7 flex flex-col justify-between shadow-xs">
+                <div>
+                  <span className="text-[#b06000] sm:text-[#e37400] text-xs font-extrabold uppercase tracking-wider block mb-4">
+                    BUNDLE DEAL PRICING
+                  </span>
+
+                  <div className="space-y-3">
+                    <div className="flex items-center justify-between text-xs sm:text-sm text-gray-700">
+                      <span className="truncate pr-2">{selectedApparelOption.title}</span>
+                      <span className="font-semibold text-gray-900 shrink-0">
+                        {formatPrice(selectedApparelOption.price)}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs sm:text-sm text-gray-700">
+                      <span className="truncate pr-2">{targetProduct.title} (15% Off)</span>
+                      <span className="font-bold text-[#e37400] shrink-0">
+                        {formatPrice(targetDiscountedPrice)}
+                      </span>
+                    </div>
+
+                    <div className="flex items-center justify-between text-xs sm:text-sm font-semibold text-[#137333]">
+                      <span>Instant Savings</span>
+                      <span className="font-bold shrink-0">
+                        -{formatPrice(targetSavings)}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-6 pt-4 border-t border-gray-200">
+                  <div className="flex items-baseline justify-between mb-5">
+                    <span className="text-base font-semibold text-gray-700">Total:</span>
+                    <div className="flex flex-col items-end">
+                      <span className="text-3xl sm:text-4xl font-black text-gray-900 tracking-tight">
+                        {formatPrice(bundleTotalDiscounted)}
+                      </span>
+                      <span className="text-xs text-gray-400 line-through mt-0.5">
+                        {formatPrice(bundleTotalRegular)}
+                      </span>
+                    </div>
+                  </div>
+
+                  <button
+                    onClick={handleAddBundle}
+                    className="w-full py-4 bg-[#fbbc05] hover:bg-[#f29900] active:scale-[0.99] text-[#202124] rounded-xl font-extrabold text-sm sm:text-base transition-all shadow-md flex items-center justify-center space-x-2 cursor-pointer"
+                  >
+                    <ShoppingBag className="w-5 h-5 fill-current" />
+                    <span>Add Bundle & Save 15%</span>
+                  </button>
+                </div>
+              </div>
+
             </div>
           </div>
         </section>
